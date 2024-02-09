@@ -62,7 +62,8 @@ jobs:
           llvm-15-dev \
           ninja-build \
           pkg-config \
-          python3-setuptools
+          python3-setuptools \
+          pip
         pip3 install toml
       env:
         DEBIAN_FRONTEND: noninteractive
