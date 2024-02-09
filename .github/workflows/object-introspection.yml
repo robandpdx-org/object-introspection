@@ -73,6 +73,7 @@ jobs:
         submodules: recursive
     - name: Build
       run: |-
+        git config --global --add safe.directory $GITHUB_WORKSPACE
         cmake -G Ninja -B build/ -DWITH_FLAKY_TESTS=Off -DCODE_COVERAGE=On -DWARNINGS_AS_ERRORS=${{ matrix.warnings_as_errors }}
         cmake --build build/
         # Testing rubbish:
