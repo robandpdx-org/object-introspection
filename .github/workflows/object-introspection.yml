@@ -35,8 +35,8 @@ jobs:
     steps:
     - name: Install dependencies
       run: |-
-        sudo apt-get update
-        sudo apt-get install -y \
+        apt-get update
+        apt-get install -y \
           bison \
           build-essential \
           clang-12 \
