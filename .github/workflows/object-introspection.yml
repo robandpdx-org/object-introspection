@@ -4,7 +4,7 @@ on:
     branches:
     - main
 env:
-  CODECOV_TOKEN: xxxx3470
+  CODECOV_TOKEN: xxxxxxx
 jobs:
   lint:
     runs-on: ubuntu-latest
