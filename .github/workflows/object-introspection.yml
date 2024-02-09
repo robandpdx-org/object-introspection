@@ -87,9 +87,15 @@ jobs:
           build/
           extern/
           types/
+    - name: persist-workspace
+      uses: bissolli/gh-action-persist-workspace@v1.0.0
+      with:
+        action: persist
   test:
     runs-on: ubuntu-latest
     needs: build
+    container:
+      image: ubuntu:22.04
     strategy:
       matrix:
         include:
@@ -101,6 +107,10 @@ jobs:
       oid_test_args: ''
       tests_regex: ".*"
     steps:
+    - name: persist-workspace
+      uses: bissolli/gh-action-persist-workspace@v1.0.0
+      with:
+        action: retrieve
     - uses: actions/download-artifact@v4.1.0
       with:
         name: ${{ matrix.name }}
@@ -149,6 +159,10 @@ jobs:
       image: ubuntu:jammy
     needs: test
     steps:
+    - name: persist-workspace
+      uses: bissolli/gh-action-persist-workspace@v1.0.0
+      with:
+        action: retrieve
     - name: Install dependencies
       run: |-
         apt-get update
