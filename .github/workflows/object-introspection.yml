@@ -16,6 +16,8 @@ jobs:
       run: nix --experimental-features 'nix-command flakes' flake check
   build:
     runs-on: 16-core
+    container:
+      image: ubuntu:22.04
     strategy:
       matrix:
         include:
