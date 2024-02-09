@@ -63,7 +63,8 @@ jobs:
           ninja-build \
           pkg-config \
           python3-setuptools \
-          pip
+          pip \
+          git
         pip3 install toml
       env:
         DEBIAN_FRONTEND: noninteractive
