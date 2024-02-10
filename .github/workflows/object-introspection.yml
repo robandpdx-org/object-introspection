@@ -126,7 +126,8 @@ jobs:
           libgflags-dev \
           llvm-15-dev \
           libfmt-dev \
-          libjemalloc-dev
+          libjemalloc-dev \
+          cmake
       env:
         DEBIAN_FRONTEND: noninteractive
     - name: Test
