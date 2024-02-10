@@ -111,10 +111,6 @@ jobs:
       with:
         artifactName: workspace-${{ matrix.name }}
         action: retrieve
-    - uses: actions/download-artifact@v4.1.0
-      with:
-        name: ${{ matrix.name }}
-        path: .
     - name: Install dependencies
       run: |-
         sudo apt-get update
