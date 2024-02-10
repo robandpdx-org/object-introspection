@@ -119,8 +119,8 @@ jobs:
         path: .
     - name: Install dependencies
       run: |-
-        sudo apt-get update
-        sudo apt-get install -y \
+        apt-get update
+        apt-get install -y \
           clang-15 \
           libboost-all-dev \
           libgflags-dev \
@@ -131,7 +131,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
     - name: Test
       run: |-
-        echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+        echo 0 | tee /proc/sys/kernel/yama/ptrace_scope
         OID_TEST_ARGS='${{ env.oid_test_args }}' ctest \
           --test-dir build/test/ \
           --test-action Test \
