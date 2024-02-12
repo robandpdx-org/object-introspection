@@ -159,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:jammy
-    needs: build
+    needs: test
     steps:
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
