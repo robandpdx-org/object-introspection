@@ -164,6 +164,7 @@ jobs:
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
       with:
+        artifactName: workspace-build-gcc
         action: retrieve
     - name: Install dependencies
       run: |-
