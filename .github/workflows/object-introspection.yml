@@ -180,12 +180,12 @@ jobs:
         # branches, which primarily come from exception handling in
         # standard library functions.
         cpanm --notest Capture::Tiny DateTime
-        pushd /tmp
+        cd /tmp
         curl -sLO https://github.com/linux-test-project/lcov/releases/download/v2.0/lcov-2.0.tar.gz
         tar -xf lcov-2.0.tar.gz
         cd lcov-2.0
         make install
-        popd
+        cd $GITHUB_WORKSPACE
       env:
         DEBIAN_FRONTEND: noninteractive
     - uses: actions/checkout@v4.1.0
