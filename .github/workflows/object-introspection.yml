@@ -35,6 +35,8 @@ jobs:
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
+      oid_test_args: ''
+      tests_regex: ".*"
     steps:
     - name: Install dependencies
       run: |-
