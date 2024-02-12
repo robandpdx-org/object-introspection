@@ -80,13 +80,6 @@ jobs:
         cmake --build build/
         # Testing rubbish:
         cp test/ci.oid.toml build/testing.oid.toml
-    - uses: actions/upload-artifact@v4.0.0
-      with:
-        name: ${{ matrix.name }}
-        path: |-
-          build/
-          extern/
-          types/
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
       with:
@@ -113,10 +106,6 @@ jobs:
       with:
         artifactName: workspace-${{ matrix.name }}
         action: retrieve
-    - uses: actions/download-artifact@v4.1.0
-      with:
-        name: ${{ matrix.name }}
-        path: .
     - name: Install dependencies
       run: |-
         apt-get update
@@ -159,7 +148,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:jammy
-    needs: test
+    needs: build
     steps:
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
@@ -188,10 +177,6 @@ jobs:
         cd $GITHUB_WORKSPACE
       env:
         DEBIAN_FRONTEND: noninteractive
-    - uses: actions/checkout@v4.1.0
-    - uses: actions/download-artifact@v4.1.0
-      with:
-        path: "."
     - name: Code Coverage
       run: |-
         lcov --capture --directory . --filter branch --no-external --ignore-errors mismatch --ignore-errors source --rc lcov_branch_coverage=1 --output-file coverage.info
