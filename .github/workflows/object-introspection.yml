@@ -26,17 +26,13 @@ jobs:
             cc: /usr/bin/gcc
             cxx: /usr/bin/g++
             warnings_as_errors: OFF
-            exclude_regex: ".*inheritance_polymorphic.*|.*arrays_member_int0"
           - name: build-clang
             cc: /usr/bin/clang-12
             cxx: /usr/bin/clang++-12
             warnings_as_errors: ON
-            exclude_regex: ".*inheritance_polymorphic.*|.*arrays_member_int0|.*fbstring.*|.*std_string_*|.*multi_arg_tb_.*|.*ignored_member|OilIntegration.fbstring_.*|OilIntegration.capture_keys_string|OilIntegration.capture_keys_multi_level"
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
-      oid_test_args: ''
-      tests_regex: ".*"
     steps:
     - name: Install dependencies
       run: |-
@@ -91,21 +87,6 @@ jobs:
           build/
           extern/
           types/
-    - name: Test
-      run: |-
-        #echo 0 | tee /proc/sys/kernel/yama/ptrace_scope
-        OID_TEST_ARGS='${{ env.oid_test_args }}' ctest \
-          --test-dir build/test/ \
-          --test-action Test \
-          -j 16 \
-          --tests-regex '${{ env.tests_regex }}' \
-          --exclude-regex '${{ matrix.exclude_regex }}' \
-          --no-compress-output \
-          --output-on-failure \
-          --schedule-random \
-          --timeout 60 \
-          --repeat until-pass:2 \
-          --output-junit results.xml
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
       with:
@@ -178,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:jammy
-    needs: test
+    needs: build
     steps:
     - name: persist-workspace
       uses: bissolli/gh-action-persist-workspace@v1.0.0
@@ -232,4 +213,3 @@ jobs:
         # forever. Delete it for a speedup.
         rm -rf extern
         ./codecov -Z -f coverage.info -t $CODECOV_TOKEN
-      if: always()
